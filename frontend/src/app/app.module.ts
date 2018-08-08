@@ -8,9 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './components/list/list.component';
 import { EditComponent } from './components/edit/edit.component';
 import { CreateComponent } from './components/create/create.component';
-import { MatToolbarModule } from '@angular/material';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
-
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatOptionModule,
+        MatIconModule, MatButtonModule, MatCardModule, MatTableModule, MatSelectModule,
+        MatDividerModule, MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,17 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTableModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [IssueService],
   bootstrap: [AppComponent]

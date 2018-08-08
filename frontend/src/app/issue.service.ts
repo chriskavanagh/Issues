@@ -10,7 +10,7 @@ export class IssueService {
 
   // get all issues
   getIssues() {
-    return this.http.get(`http://localhost:3000/issues`);
+    return this.http.get(`http://localhost:3000/api`);
   }
 
   // get an issue by the id

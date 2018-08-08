@@ -17,7 +17,7 @@ router.use(function(req, res, next) {
 
 // get all issues
 router.get('/', (req, res) => {
-	Employee.find((err, issues) => {
+	Issue.find((err, issues) => {
     if (err) {
       console.log(err);
    }else{
