@@ -8,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private eService:IssueService) { }
+  constructor(private issueService:IssueService) { }
 
   ngOnInit() {
+    this.issueService.getIssues()
+    .subscribe(
+      issues => console.log(issues)
+    )
   }
 
 }
