@@ -29,4 +29,21 @@ export class IssueService {
     return this.http.post(`http://localhost:3000/issues/add`, issue);
   }
 
-} // end class
+  // update issue by id
+  updateIssue(id, title, responsible, description, severity, status) {
+    const issue = {
+      title:title,
+      responsible:responsible,
+      description:description,
+      severity:severity,
+      status:status
+    };
+    return this.http.post(`http://localhost:3000/issues/update/${id}`, issue);
+  }
+
+  // delete issue
+  deleteIssue(id) {
+    return this.http.get(`http://localhost:3000/issues/delete/${id}`)
+  }
+
+} // end class IssueService
