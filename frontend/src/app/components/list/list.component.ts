@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
   issues: Issue[];
   displayedColumns = ['title', 'responsible', 'severity', 'status', 'actions'];
 
-  constructor(private issueService:IssueService,private router: Router) { }
+  constructor(private issueService: IssueService, private router: Router) { }
 
   ngOnInit() {
     this.fetchIssues();
@@ -21,15 +21,15 @@ export class ListComponent implements OnInit {
 
   fetchIssues() {
     this.issueService.getIssues()
-    .subscribe((data:Issue[]) => {
-      this.issues = data;
-      console.log('Data Requested...');
-      console.log(this.issues);
-    });      
-  }
+      .subscribe((data:Issue[]) => {
+        this.issues = data;
+        console.log('Data Requested...');
+        console.log(this.issues);
+      });      
+    }
 
   editIssue(id) {
-    this.router.navigate([`/edit/${id}`]);
+    this.router.navigate([`/edit`, id]);
   }
 
   deleteIssue(id) {

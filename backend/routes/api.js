@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 // add/create issue
-router.post('/add', (req, res) => {
+router.post('issues/add', (req, res) => {
     Issue.create(req.body, (err, issue) => {
         if (err) {
             res.status(400).send('Failed to create new record');
