@@ -1,5 +1,5 @@
-const express = require('express');
 // import express from 'express';
+const express = require('express');
 const router = express.Router();
 const Issue = require('../models/issue');
 const bodyParser = require('body-parser');
@@ -8,18 +8,28 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
+// useless middleware for test
+var myLogger = function (req, res, next) {
+console.log('LOGGED');
+next();
+};
+
+router.use(myLogger);
+
+
 // simple logger for this router's requests
 // all requests to this router will first hit this middleware
-router.use(function(req, res, next) {
+/* router.use(function(req, res, next) {
   console.log('%s %s %s', req.method, req.url, req.path);
   next();
-});
+}); */
 
 // get all issues
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
 	Issue.find((err, issues) => {
-    if (err) {
-      console.log(err);
+    // if (err) throw err;
+    if (!issues) {
+        res.status(404).send("Issue Not Found!");
    }else{
       res.json(issues);
     }
@@ -27,9 +37,10 @@ router.get('/', (req, res) => {
 });
 
 // add/create issue
-router.post('/issues/add', (req, res) => {
+router.post('/issues/add', (req, res, next) => {
     Issue.create(req.body, (err, issue) => {
-        if (err) {
+        // if (err) throw err;
+        if (!issue) {
             res.status(400).send('Failed to create new record');
        }else{
             res.status(200).json({'issue': 'Added successfully', 'Issue':issue});
@@ -38,10 +49,12 @@ router.post('/issues/add', (req, res) => {
 });
 
 // find issue by id
-router.get('/issues/:id', (req, res) => {
+router.get('/issues/:id', (req, res, next) => {
     Issue.findById(req.params.id, (err, issue) => {
-        if (err) {
-            console.log(err);
+        // if (err) throw err;
+        if (!issue) {            
+            res.status(404).send("Issue Not Found!");
+            
        }else{
             res.json(issue);
         }
@@ -49,10 +62,11 @@ router.get('/issues/:id', (req, res) => {
 });
 
 // update issue by id
-router.post('/issues/update/:id',(req, res) => {
+router.post('/issues/update/:id',(req, res, next) => {
+    // if (err) throw err;
     Issue.findById(req.params.id, (err, issue) => {
         if (!issue)
-            return next(new Error('Could not load document'));
+            res.status(404).send("Issue Not Found!");
         else {
             issue.title = req.body.title;
             issue.responsible = req.body.responsible;
@@ -70,10 +84,11 @@ router.post('/issues/update/:id',(req, res) => {
 });
 
 // delete issue by id
-router.get('/issues/delete/:id', (req, res) => {
+router.get('/issues/delete/:id', (req, res, next) => {
+    // if (err) throw err;
     Issue.findByIdAndRemove({_id: req.params.id}, (err, issue) => {
-        if (err)
-            res.json(err);
+        if (!issue)
+            res.status(404).send("Issue Not Found!");
         else
             res.json('Remove successfully');
     });
