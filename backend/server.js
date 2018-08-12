@@ -21,12 +21,28 @@ db.once('open', () => {
 
 // middleware
 app.use(bodyParser.json());
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // get routes from api.js
 app.use('/api', routes);
+
+// error middleware
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+      error: {
+          message: error.message
+      }
+  });
+});
 
 
 // start server

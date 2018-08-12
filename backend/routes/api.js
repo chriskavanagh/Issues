@@ -10,19 +10,11 @@ router.use(bodyParser.urlencoded({extended: false}));
 
 // useless middleware for test
 var myLogger = function (req, res, next) {
-console.log('LOGGED');
-next();
-};
-
+    console.log('LOGGED');
+    next();
+    };
+    
 router.use(myLogger);
-
-
-// simple logger for this router's requests
-// all requests to this router will first hit this middleware
-/* router.use(function(req, res, next) {
-  console.log('%s %s %s', req.method, req.url, req.path);
-  next();
-}); */
 
 // get all issues
 router.get('/', (req, res, next) => {
@@ -53,8 +45,7 @@ router.get('/issues/:id', (req, res, next) => {
     Issue.findById(req.params.id, (err, issue) => {
         // if (err) throw err;
         if (!issue) {            
-            res.status(404).send("Issue Not Found!");
-            
+            res.status(404).send("Issue Not Found!");            
        }else{
             res.json(issue);
         }
@@ -93,6 +84,7 @@ router.get('/issues/delete/:id', (req, res, next) => {
             res.json('Remove successfully');
     });
 });
+
 
 
 // export router
