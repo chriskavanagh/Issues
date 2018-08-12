@@ -9,12 +9,12 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
 // useless middleware for test
-var myLogger = function (req, res, next) {
+/* var myLogger = function (req, res, next) {
     console.log('LOGGED');
     next();
     };
     
-router.use(myLogger);
+router.use(myLogger); */
 
 // get all issues
 router.get('/', (req, res, next) => {
