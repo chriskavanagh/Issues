@@ -85,7 +85,5 @@ router.get('/issues/delete/:id', (req, res, next) => {
     });
 });
 
-
-
 // export router
 module.exports = router;
